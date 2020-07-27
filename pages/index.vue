@@ -79,7 +79,6 @@ export default {
           value: pokeAll.splice(0, 5)
         })
       }
-      console.log(chunk)
       return {
         pokeType: response[0],
         pokeAbility: response[1],

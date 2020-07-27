@@ -1,17 +1,17 @@
 export const state = () => ({
-  filter: {
-    pokeTypeSelected: [],
-    pokeTypeAbility: [],
-    namePokeSelected: ''
-  }
+  pokeTypeSelected: [],
+  pokeAbilitySelected: [],
+  pokeNameSelected: ''
 })
 
 export const mutations = {
-  filterPokemon (type, ability, name) {
-    state.filter = {
-      pokeTypeSelected: type,
-      pokeTypeAbility: ability,
-      namePokeSelected: name
-    }
+  filterTypePokemon (state, type) {
+    state.pokeTypeSelected = [...type]
+  },
+  filterAbilityPokemon (state, ability) {
+    state.pokeAbilitySelected = [...ability]
+  },
+  filterNamePokemon (state, name) {
+    state.pokeNameSelected = name
   }
 }

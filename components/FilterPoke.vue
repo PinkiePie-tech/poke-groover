@@ -1,12 +1,17 @@
 <template>
   <div class="filter">
     <b-field class="filter-input">
-      <b-input v-model="namePokeSelected" placeholder="Renseignez le nom de votre pokémon" />
+      <b-input
+        :value="pokeNameSelected"
+        placeholder="Renseignez le nom de votre pokémon"
+        @change="updateName($event)"
+      />
     </b-field>
     <b-dropdown
-      v-model="pokeTypeSelected"
+      :value="pokeTypeSelected"
       class="filter-button"
       multiple
+      @change="updateType($event)"
     >
       <button
         slot="trigger"
@@ -26,16 +31,17 @@
       </b-dropdown-item>
     </b-dropdown>
     <b-dropdown
-      v-model="pokeTypeAbility"
+      :value="pokeAbilitySelected"
       class="filter-button"
       multiple
+      @change="updateAbility($event)"
     >
       <button
         slot="trigger"
         class="button is-primary filter-input-button"
         type="button"
       >
-        <span class="filter-input-button-text">{{ pokeTypeAbility.length > 0 ? pokeTypeAbility.join(", ") : "Type" }}</span>
+        <span class="filter-input-button-text">{{ pokeAbilitySelected.length > 0 ? pokeAbilitySelected.join(", ") : "Compétence" }}</span>
         <b-icon icon="menu-down" />
       </button>
       <b-dropdown-item
@@ -81,12 +87,24 @@
 
 <script>
 export default {
+  // eslint-disable-next-line vue/require-prop-types
   props: ['pokeType', 'pokeAbility'],
   data () {
     return {
+      pokeNameSelected: '',
       pokeTypeSelected: [],
-      pokeTypeAbility: [],
-      namePokeSelected: ''
+      pokeAbilitySelected: []
+    }
+  },
+  methods: {
+    updateType (value) {
+      this.$store.commit('filterTypePokemon', value)
+    },
+    updateAbility (value) {
+      this.$store.commit('filterAbilityPokemon', value)
+    },
+    updateName (value) {
+      this.$store.commit('filterNamePokemon', value)
     }
   }
 }
