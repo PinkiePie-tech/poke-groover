@@ -63,14 +63,22 @@ export const getters = {
 
 export const actions = {
   nuxtServerInit ({ commit }) {
-    return axios.get('/pokemon?limit=125&offset=0').then((res) => {
+    return axios.get('/pokemon?limit=250&offset=0').then((res) => {
       const getDetails = res.data.results.map((value) => {
         return axios.get(value.url).then((pokeDetail) => {
           return pokeDetail.data
         })
       })
       return Promise.all(getDetails).then((result) => {
-        commit('setDetailListPokemon', result)
+        commit('setDetailListPokemon', result.map((value) => {
+          return {
+            id: value.id,
+            name: value.name,
+            sprites: value.sprites,
+            abilities: value.abilities,
+            types: value.types
+          }
+        }))
       })
     })
   }
