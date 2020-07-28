@@ -4,7 +4,7 @@
       <b-input
         :value="pokeNameSelected"
         placeholder="Renseignez le nom de votre pokémon"
-        @keydown.native.enter="updateName($event)"
+        @input="updateName($event)"
       />
     </b-field>
     <b-dropdown
@@ -105,8 +105,8 @@ export default {
     updateAbility (value) {
       this.$store.commit('filterAbilityPokemon', value)
     },
-    updateName (e) {
-      this.$store.commit('filterNamePokemon', e.target.value)
+    updateName (value) {
+      this.$store.commit('filterNamePokemon', value)
     }
   }
 }

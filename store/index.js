@@ -8,12 +8,15 @@ export const state = () => ({
 
 export const mutations = {
   filterTypePokemon (state, type) {
+    state.pokemon.page = 1
     state.pokeTypeSelected = [...type]
   },
   filterAbilityPokemon (state, ability) {
+    state.pokemon.page = 1
     state.pokeAbilitySelected = [...ability]
   },
   filterNamePokemon (state, name) {
+    state.pokemon.page = 1
     state.pokeNameSelected = name
   },
   setListPokemon: (state, data) => {
@@ -21,6 +24,9 @@ export const mutations = {
   },
   setDetailListPokemon: (state, data) => {
     state.pokemon.list = [...data]
+  },
+  showMore: (state) => {
+    state.pokemon.page++
   }
 }
 

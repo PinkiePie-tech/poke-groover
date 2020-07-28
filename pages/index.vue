@@ -25,6 +25,15 @@
         />
       </card>
     </div>
+    <footer>
+      <b-button
+        type="is-primary"
+        expanded
+        @click="showMore"
+      >
+        Voir plus
+      </b-button>
+    </footer>
   </section>
 </template>
 
@@ -74,6 +83,11 @@ export default {
     ...mapGetters({
       pokeAll: 'getList'
     })
+  },
+  methods: {
+    showMore () {
+      this.$store.commit('showMore')
+    }
   }
 }
 </script>
