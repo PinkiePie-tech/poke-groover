@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import axios from '~/plugins/axios'
 import Card from '~/components/Card'
 import PokeAbility from '~/components/PokeAbility'
@@ -42,51 +43,36 @@ export default {
     PokeAbility
   },
   asyncData (context) {
-    const getType = axios.get('/type').then((res) => {
+    const getType = axios.get('/type?limit=200').then((res) => {
       return res.data.results.map((value) => {
         return {
           name: value.name
         }
       })
     })
-    const getAbility = axios.get('/ability').then((res) => {
+    const getAbility = axios.get('/ability?limit=200').then((res) => {
       return res.data.results.map((value) => {
         return {
           name: value.name
         }
-      })
-    })
-    const getAll = axios.get('/pokemon?limit=150&offset=0').then((res) => {
-      const getDetails = res.data.results.map((value) => {
-        return axios.get(value.url).then((pokeDetail) => {
-          return pokeDetail.data
-        })
-      })
-      return Promise.all(getDetails).then((result) => {
-        return result
       })
     })
     return Promise.all([
       getType,
-      getAbility,
-      getAll
+      getAbility
     ]).then((response) => {
-      const pokeAll = response[2].slice(0, 25)
-      const chunk = []
-      while (pokeAll.length > 0) {
-        chunk.push({
-          key: chunk.length,
-          value: pokeAll.splice(0, 5)
-        })
-      }
       return {
         pokeType: response[0],
-        pokeAbility: response[1],
-        pokeAll: chunk
+        pokeAbility: response[1]
       }
     }).catch((error) => {
       context.error(new Error(error))
       Promise.reject(error)
+    })
+  },
+  computed: {
+    ...mapGetters({
+      pokeAll: 'getList'
     })
   }
 }

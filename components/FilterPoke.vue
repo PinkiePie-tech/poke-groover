@@ -4,12 +4,13 @@
       <b-input
         :value="pokeNameSelected"
         placeholder="Renseignez le nom de votre pokémon"
-        @change="updateName($event)"
+        @keydown.native.enter="updateName($event)"
       />
     </b-field>
     <b-dropdown
       :value="pokeTypeSelected"
       class="filter-button"
+      scrollable
       multiple
       @change="updateType($event)"
     >
@@ -33,6 +34,7 @@
     <b-dropdown
       :value="pokeAbilitySelected"
       class="filter-button"
+      scrollable
       multiple
       @change="updateAbility($event)"
     >
@@ -103,8 +105,8 @@ export default {
     updateAbility (value) {
       this.$store.commit('filterAbilityPokemon', value)
     },
-    updateName (value) {
-      this.$store.commit('filterNamePokemon', value)
+    updateName (e) {
+      this.$store.commit('filterNamePokemon', e.target.value)
     }
   }
 }
