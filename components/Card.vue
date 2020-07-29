@@ -2,9 +2,9 @@
   <div class="column  card-custom">
     <div class="card">
       <header class="card-header">
-        <p class="card-header-title has-text-grey">
+        <span class="card-header-title has-text-grey">
           {{ title.toUpperCase() }}
-        </p>
+        </span>
       </header>
       <div class="card-content">
         <div class="content has-text-centered">
